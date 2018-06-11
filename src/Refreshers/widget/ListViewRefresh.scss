@@ -1,0 +1,7 @@
+.mx-listview.mx-chat {
+    overflow-y: scroll;
+    ul {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+}

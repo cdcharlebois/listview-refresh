@@ -1,0 +1,22 @@
+<widget id="Refreshers.widget.ListViewRefresh" needsEntityContext="false" xmlns="http://www.mendix.com/widget/1.0/">
+    <name>List View Refresh</name>
+    <description>Dummy widget</description>
+    <icon/>
+    <properties>
+        <property key="waitTime" type="integer" defaultValue="10" required="true">
+         <caption>Wait Time</caption>
+          <category>General</category>
+          <description>How often should the listview refresh?</description>
+        </property>
+        <property key="height" type="integer" defaultValue="0" required="true">
+         <caption>ListView Height</caption>
+          <category>Appearance</category>
+          <description>The height of the listview, in pixels. (Leave as 0 to auto-size).</description>
+        </property>
+        <property key="isChat" type="boolean" defaultValue="false">
+          <caption>Is Chat</caption>
+          <category>General</category>
+          <description>Adds the styling and events to turn this into a chat listview.</description>
+        </property>
+    </properties>
+</widget>
