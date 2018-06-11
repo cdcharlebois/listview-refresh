@@ -30,10 +30,9 @@ export default defineWidget('ListViewRefresh', false, {
                 this.domNode.parentElement &&
                 this.domNode.parentElement.querySelector(".mx-listview")) {
                 console.log("Found nodes.");
-                this._nodes = {
-                    listview: this.domNode.parentElement.querySelector(".mx-listview"),
-                    button: this._nodes.listview.querySelector("button")
-                };
+                this._nodes = {};
+                this._nodes.listview = this.domNode.parentElement.querySelector(".mx-listview");
+                this._nodes.button = this._nodes.listview.querySelector("button");
                 this._listview = dijit.registry.byNode(this._nodes.listview);
                 this.attachToListView();
                 clearInterval(wait);
