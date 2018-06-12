@@ -4,6 +4,7 @@ import {
     runCallback,
 } from 'widget-base-helpers';
 import './ListViewRefresh.scss';
+import aspect from 'aspect-js';
 
 export default defineWidget('ListViewRefresh', false, {
 
@@ -41,31 +42,29 @@ export default defineWidget('ListViewRefresh', false, {
     },
 
     attachToListView() {
-        require(["dojo/aspect"], aspect => {
-            const lv = this._nodes.listview,
-                listview = this._listview;
-            // set the height
-            lv.style.height = this.height + "px";
-            // if it's set to chat, add the class, scroll to bottom, and move the button (if it exists)
-            if (this.isChat) {
-                lv.classList.add("mx-chat");
-                this._prior = 0;
-                aspect.after(this._listview, "_onLoad", () => {
-                    this.moveLoadMoreButtion();
-                    console.debug(`Prior: ${this._prior} | New: ${listview._datasource._setSize}`);
-                    if (listview._datasource._setSize > this._prior) {
-                        this._prior = listview._datasource._setSize;
-                        lv.scrollTop = lv.scrollHeight;
-                    }
-                });
-                this._interval = setInterval(() => {
-                    listview.sequence(["_sourceReload", "_renderData", "_onLoad"]);
-                }, this.waitTime * 1000);
-                setTimeout(() => {
+        const lv = this._nodes.listview,
+            listview = this._listview;
+        // set the height
+        lv.style.height = this.height + "px";
+        // if it's set to chat, add the class, scroll to bottom, and move the button (if it exists)
+        if (this.isChat) {
+            lv.classList.add("mx-chat");
+            this._prior = 0;
+            aspect.after(this._listview, "_onLoad", () => {
+                this.moveLoadMoreButtion();
+                console.debug(`Prior: ${this._prior} | New: ${listview._datasource._setSize}`);
+                if (listview._datasource._setSize > this._prior) {
+                    this._prior = listview._datasource._setSize;
                     lv.scrollTop = lv.scrollHeight;
-                }, 200);
-            }
-        });
+                }
+            });
+            this._interval = setInterval(() => {
+                listview.sequence(["_sourceReload", "_renderData", "_onLoad"]);
+            }, this.waitTime * 1000);
+            setTimeout(() => {
+                lv.scrollTop = lv.scrollHeight;
+            }, 200);
+        }
     },
 
     moveLoadMoreButtion() {
